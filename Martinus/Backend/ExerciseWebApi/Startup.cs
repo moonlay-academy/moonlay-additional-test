@@ -27,11 +27,16 @@ namespace ExerciseWebApi
         {
             services.AddDbContext<IdentitasContext>(opt => opt.UseInMemoryDatabase("IdentitasList"));
             services.AddControllers();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(opt => opt.WithOrigins("localhost:3000/")
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
